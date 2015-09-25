@@ -34,9 +34,9 @@ pcl-1.7/pcl/visualization/pcl_visualizer.h
 pcl-1.7/pcl/visualization/cloud_viewer.h
 -
 
-/home/lukezhu/Documents/Simultaneous localization and mapping/slamdiy/try4/src/cpp/Kinect_Input.cpp
+/home/lukezhu/Documents/Git/repository/slam/try5/src/cpp/Kinect_Input.cpp
 Kinect_Input.h
-/home/lukezhu/Documents/Simultaneous localization and mapping/slamdiy/try4/src/cpp/Kinect_Input.h
+/home/lukezhu/Documents/Git/repository/slam/try5/src/cpp/Kinect_Input.h
 
 /usr/include/ni/Linux-Arm/XnPlatformLinux-Arm.h
 ../Linux-x86/XnPlatformLinux-x86.h

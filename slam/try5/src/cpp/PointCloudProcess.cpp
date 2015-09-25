@@ -101,7 +101,7 @@ Isometry3d PointCloudProcess::matrix_generation(Mat mg_rvec, Mat mg_tvec)
 	Isometry3d T;
 	
 	Rodrigues (mg_rvec, R);
-	cv2eigen(R, r);
+	cv::cv2eigen(R, r);
 	AngleAxisd angle(r);
 	Translation<double,3> trans(mg_tvec.at<double>(0,0), mg_tvec.at<double>(0,1), mg_tvec.at<double>(0,2));
 	T = angle;

@@ -77,6 +77,8 @@ XnCppWrapper.h
 -
 opencv2/opencv.hpp
 ../include/opencv2/opencv.hpp
+opencv2/core/eigen.hpp
+../include/opencv2/core/eigen.hpp
 opencv2/imgproc/imgproc.hpp
 ../include/opencv2/imgproc/imgproc.hpp
 opencv2/imgcodecs.hpp
@@ -96,7 +98,7 @@ Eigen/Core
 Eigen/Geometry
 -
 
-/home/lukezhu/Documents/Simultaneous localization and mapping/slamdiy/try4/src/cpp/PointCloudProcess.cpp
+/home/lukezhu/Documents/Git/repository/slam/try5/src/cpp/PointCloudProcess.cpp
 PointCloudProcess.h
 -
 

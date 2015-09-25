@@ -1,4 +1,4 @@
-# Install script for directory: /home/lukezhu/Documents/Simultaneous localization and mapping/slamdiy/try4/src
+# Install script for directory: /home/lukezhu/Documents/Git/repository/slam/try5/src
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,7 +34,7 @@ ENDIF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 
 IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  INCLUDE("/home/lukezhu/Documents/Simultaneous localization and mapping/slamdiy/try4/build/src/cpp/cmake_install.cmake")
+  INCLUDE("/home/lukezhu/Documents/Git/repository/slam/try5/build/src/cpp/cmake_install.cmake")
 
 ENDIF(NOT CMAKE_INSTALL_LOCAL_ONLY)
 

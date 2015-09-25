@@ -58,11 +58,11 @@ pcl-1.7/pcl/visualization/pcl_visualizer.h
 pcl-1.7/pcl/visualization/cloud_viewer.h
 -
 
-/home/lukezhu/Documents/Simultaneous localization and mapping/slamdiy/try4/src/main.cpp
+/home/lukezhu/Documents/Git/repository/slam/try5/src/main.cpp
 Kinect_Input.h
-/home/lukezhu/Documents/Simultaneous localization and mapping/slamdiy/try4/src/Kinect_Input.h
+/home/lukezhu/Documents/Git/repository/slam/try5/src/Kinect_Input.h
 Detect.h
-/home/lukezhu/Documents/Simultaneous localization and mapping/slamdiy/try4/src/Detect.h
+/home/lukezhu/Documents/Git/repository/slam/try5/src/Detect.h
 opencv2/opencv.hpp
 -
 

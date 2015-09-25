@@ -22,14 +22,7 @@ Detect::Detect()
 	double cy = 240;
 	double fx = 525;
 	double fy = 525;
-	double camera_matrix_data[3][3] = {{fx, 0, cx},
-					   {0, fy, cy},
-					   {0, 0, 1} };
-				for(int i=0;i<3;i++)
-		for(int j=0;j<3;j++)
-			std::cout<<camera_matrix_data[i][j]<<std::endl;
-	std::cout << cameraMatrix << std::endl;
-//	cameraMatrix = cv::Mat(3, 3, CV_64F, camera_matrix_data);
+		
 	cameraMatrix = cv::Mat(3, 3, CV_64F);
 	cameraMatrix.setTo(0);
 	cameraMatrix.at<double>(0,0) = fx;
@@ -37,11 +30,10 @@ Detect::Detect()
 	cameraMatrix.at<double>(1,1) = fy;
 	cameraMatrix.at<double>(1,2) = cy;
 	cameraMatrix.at<double>(2,2) = 1;
-//	m_imglast = imread("/home/zhezhu/Pictures/1.png");
+
 	namedWindow("KeyPoint_Show");
 	namedWindow("Match_Show");
-	
-	fuck=0;
+
 }
 
 vector<cv::KeyPoint> Detect::kp_extract(Ptr<xfeatures2d::SURF> det, Mat img)
@@ -135,8 +127,8 @@ void Detect::surf_show(Mat last, Mat recent, vector<KeyPoint> kpl, vector<KeyPoi
 	imshow("Match_Show", match_show);
 	waitKey(10);
 }
-#if 1
-void Detect::ransac_detect(vector<DMatch> tmp_matchpoint, vector<KeyPoint> tmp_lastkp, vector<KeyPoint> tmp_recentkp, DepthGenerator tmp_depth, DepthMetaData &tmp_depthmeta)//, const XnDepthPixel* tmp_depthpixel)
+
+void Detect::ransac_detect(vector<DMatch> tmp_matchpoint, vector<KeyPoint> tmp_lastkp, vector<KeyPoint> tmp_recentkp, DepthGenerator tmp_depth, DepthMetaData &tmp_depthmeta)
 {
 	vector<Point3f> pts_last;
 	vector<Point2f> pts_recent;
@@ -144,7 +136,7 @@ void Detect::ransac_detect(vector<DMatch> tmp_matchpoint, vector<KeyPoint> tmp_l
 	Point3f temp;
 	XnPoint3D* depthpointcloud = new XnPoint3D[tmp_matchpoint.size()];
 	XnPoint3D* realpointcloud = new XnPoint3D[tmp_matchpoint.size()];
-#if 1	
+	
 	for(int i = 0; i < tmp_matchpoint.size(); i++)
 	{
 		depthpointcloud[i].X = tmp_lastkp[tmp_matchpoint[i].queryIdx].pt.x;
@@ -156,10 +148,8 @@ void Detect::ransac_detect(vector<DMatch> tmp_matchpoint, vector<KeyPoint> tmp_l
 	//	cout << "Z: " << depthpointcloud[i].Z<<endl;
 	}
 	
-#endif
-	
 	tmp_depth.ConvertProjectiveToRealWorld(tmp_matchpoint.size(), depthpointcloud, realpointcloud);
-#if 1	
+	
 	cout<<"aaaaaaa"<<tmp_matchpoint.size()<<endl;
 	for(int i = 0; i < tmp_matchpoint.size(); i++)
 	{
@@ -171,44 +161,28 @@ void Detect::ransac_detect(vector<DMatch> tmp_matchpoint, vector<KeyPoint> tmp_l
 		pts_recent.push_back(temp2);
 //		pts_recent.push_back(Point2f(tmp_recentkp[tmp_matchpoint[i].trainIdx].pt));
 
-//		cout << "pts_recent::X :  " << temp2.x << "       ";//tmp_recentkp[tmp_matchpoint[i].trainIdx].pt.x;
-//		cout << "pts_recent::Y :  " << temp2.y << endl;
 		temp.z = realpointcloud[i].Z;
 		temp.x = realpointcloud[i].X;
 		temp.y = realpointcloud[i].Y;
 
-//		cout << "temp x: " << temp.x << "  ";
-//		cout << "temp y: " << temp.y << "  ";
-//		cout << "temp z: " << temp.z << endl;
 		pts_last.push_back(temp);
 	}
 
-#endif	
-#if 1
 	// 求解pnp
 	bool result;
-//	cv::Mat distCoeffs = cv::Mat::zeros(4, 1, CV_64FC1
-	std::cout << cameraMatrix << std::endl;
-		std::cout << "rvec:" << std::endl;
-	std::cout << rvec << std::endl;
-	std::cout << "tvec:" << std::endl;
-	std::cout << tvec << std::endl;
+
 	result = solvePnPRansac( pts_last, pts_recent, cameraMatrix, Mat(), rvec, tvec);
 	cout << result << endl;
-#endif
-#if 1
+
 	std::cout << "rvec:" << std::endl;
 	std::cout << rvec << std::endl;
 	std::cout << "tvec:" << std::endl;
 	std::cout << tvec << std::endl;
-#endif
+
 }
-#endif
+
 void Detect::surf_process(Mat tmp_image, DepthGenerator tmp_depth, DepthMetaData &tmp_depthmeta, const XnDepthPixel* tmp_depthpixel)
 {	
-	fuck++;
-//	fuck = (fuck%100)+3;
-
 	tmp_image.copyTo(m_imgrecent);
 
 	m_lastkp = kp_extract(m_detector, m_imglast);
@@ -218,16 +192,14 @@ void Detect::surf_process(Mat tmp_image, DepthGenerator tmp_depth, DepthMetaData
 	m_descriptorrecent = descriptor_compute(m_detector, m_imgrecent, m_recentkp);
 	
 	m_matchpoint = img_match(m_matcher, m_descriptorlast, m_descriptorrecent);
-	cout << "matchpoint size:    " << m_matchpoint.size() << endl;
-	//surf_show(m_imglast, m_imgrecent, m_lastkp, m_recentkp, m_matchpoint);//m_goodMatches);
-//#if 0
-	if(m_matchpoint.size()>100)// && getGoodMatchesA())
-//	{
-		//if(fuck>10)
+//	cout << "matchpoint size:    " << m_matchpoint.size() << endl;
+	
+	if(m_matchpoint.size()>100)
+	{
 		ransac_detect(m_matchpoint, m_lastkp, m_recentkp, tmp_depth, m_DepthMeta_last);
-		surf_show(m_imglast, m_imgrecent, m_lastkp, m_recentkp, m_matchpoint);
-//	}
-//endif	
+	}
+	
+	surf_show(m_imglast, m_imgrecent, m_lastkp, m_recentkp, m_matchpoint);
 	m_imgrecent.copyTo(m_imglast);
 	m_DepthMeta_last.CopyFrom(tmp_depthmeta);	
 }

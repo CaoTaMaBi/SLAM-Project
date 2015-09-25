@@ -51,7 +51,7 @@ class PointCloudProcess
 		PointCloudProcess();
 		void map_generation(Mat tmp_rvec, Mat tmp_tvec,DepthGenerator* tmp_pdepth, DepthMetaData* tmp_pdepthmeta, const XnDepthPixel* tmp_pdepthpixel, const XnRGB24Pixel* tmp_pimgpixel);
 		PointCloud<pcl::PointXYZRGB>::Ptr pointcloud_generation(DepthGenerator* pcg_pdepth, DepthMetaData* pcg_pdepthmeta, const XnDepthPixel* pcg_pdepthpixel, const XnRGB24Pixel* pcg_pimgpixel);
-		Isometry3d matrix_genetation(Mat mg_rvec, Mat mg_tvec);
+		Isometry3d matrix_generation(Mat mg_rvec, Mat mg_tvec);
 		
 		static void* POINTCLOUD_THREAD(void* pvData);
 };

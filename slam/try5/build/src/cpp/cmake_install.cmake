@@ -1,4 +1,4 @@
-# Install script for directory: /home/lukezhu/Documents/Simultaneous localization and mapping/slamdiy/try4/src/cpp
+# Install script for directory: /home/lukezhu/Documents/Git/repository/slam/try5/src/cpp
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)

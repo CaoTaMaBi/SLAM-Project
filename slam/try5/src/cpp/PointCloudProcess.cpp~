@@ -94,7 +94,7 @@ PointCloud<pcl::PointXYZRGB>::Ptr PointCloudProcess::pointcloud_generation(Depth
 	return(pclcloud);
 }
 
-Isometry3d PointCloudProcess::matrix_genetation(Mat mg_rvec, Mat mg_tvec)
+Isometry3d PointCloudProcess::matrix_generation(Mat mg_rvec, Mat mg_tvec)
 {
 	Mat R;
 	Matrix3d r;
@@ -118,4 +118,6 @@ void PointCloudProcess::map_generation(Mat tmp_rvec, Mat tmp_tvec,DepthGenerator
 	m_depthmeta = tmp_pdepthmeta;
 	m_pdepthpix = tmp_pdepthpixel;
 	m_pimagepix = tmp_pimgpixel;
+	
+	m_parament = matrix_generation(tmp_rvec, tmp_tvec);
 }
