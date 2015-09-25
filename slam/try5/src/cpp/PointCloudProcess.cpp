@@ -7,9 +7,11 @@ using namespace pcl;
 using namespace Eigen;
 
 PointCloud<pcl::PointXYZRGB>::Ptr g_cloud (new pcl::PointCloud<pcl::PointXYZRGB>);
+PointCloud<pcl::PointXYZRGB>::Ptr g_cloudout (new pcl::PointCloud<pcl::PointXYZRGB>);
 
 PointCloudProcess::PointCloudProcess()
 {
+	m_flag = 0;
 	int threadwhether=pthread_create(&ptr_cloudthread,NULL,PointCloudProcess::POINTCLOUD_THREAD,this);
 	m_parament = Isometry3d::Identity();
 }
@@ -17,20 +19,27 @@ PointCloudProcess::PointCloudProcess()
 void* PointCloudProcess::POINTCLOUD_THREAD(void* pvData)
 {
 	PointCloudProcess *pcp = (PointCloudProcess*) pvData;
+	PointCloud<pcl::PointXYZRGB>::Ptr tmp_cloud (new pcl::PointCloud<pcl::PointXYZRGB>);
 	
 	pcl::visualization::PCLVisualizer viewer("3D Viewer");
-	pcl::visualization::PointCloudColorHandlerRGBField<pcl::PointXYZRGB> rgb(g_cloud);
+	pcl::visualization::PointCloudColorHandlerRGBField<pcl::PointXYZRGB> rgb(g_cloudout);
 	viewer.setBackgroundColor (255, 255, 255);
-	viewer.addPointCloud<pcl::PointXYZRGB> (g_cloud, rgb, "sample cloud");
+	viewer.addPointCloud<pcl::PointXYZRGB> (g_cloudout, rgb, "sample cloud");
 	viewer.setPointCloudRenderingProperties (pcl::visualization::PCL_VISUALIZER_POINT_SIZE, 3, "sample cloud");
 	viewer.addCoordinateSystem (2.0);
 	
 	while(1)
 	{
-		g_cloud = (*pcp).pointcloud_generation((*pcp).m_depthgen, (*pcp).m_depthmeta, (*pcp).m_pdepthpix, (*pcp).m_pimagepix);
-		
-		pcl::visualization::PointCloudColorHandlerRGBField<pcl::PointXYZRGB> rgb(g_cloud);	
-		viewer.updatePointCloud(g_cloud, rgb, "sample cloud");
+		if((*pcp).m_flag == 1)
+		{
+			g_cloud = (*pcp).pointcloud_generation((*pcp).m_depthgen, (*pcp).m_depthmeta, (*pcp).m_pdepthpix, (*pcp).m_pimagepix);
+			transformPointCloud(*g_cloud, *tmp_cloud, (*pcp).m_parament.matrix());
+			
+			*g_cloudout += *tmp_cloud;
+			
+		}
+		pcl::visualization::PointCloudColorHandlerRGBField<pcl::PointXYZRGB> rgb(g_cloudout);	
+		viewer.updatePointCloud(g_cloudout, rgb, "sample cloud");
 		viewer.spinOnce (10);
 		if(viewer.wasStopped ())
 		{
@@ -98,7 +107,7 @@ Isometry3d PointCloudProcess::matrix_generation(Mat mg_rvec, Mat mg_tvec)
 {
 	Mat R;
 	Matrix3d r;
-	Isometry3d T;
+	Isometry3d T, rT;
 	
 	Rodrigues (mg_rvec, R);
 	cv::cv2eigen(R, r);
@@ -109,7 +118,8 @@ Isometry3d PointCloudProcess::matrix_generation(Mat mg_rvec, Mat mg_tvec)
 	T(1,3) = mg_tvec.at<double>(0,1);
 	T(2,3) = mg_tvec.at<double>(0,2);
 	
-	return (T);
+	rT = T.inverse();
+	return (rT);
 }
 
 void PointCloudProcess::map_generation(Mat tmp_rvec, Mat tmp_tvec,DepthGenerator* tmp_pdepth, DepthMetaData* tmp_pdepthmeta, const XnDepthPixel* tmp_pdepthpixel, const XnRGB24Pixel* tmp_pimgpixel)
@@ -120,4 +130,6 @@ void PointCloudProcess::map_generation(Mat tmp_rvec, Mat tmp_tvec,DepthGenerator
 	m_pimagepix = tmp_pimgpixel;
 	
 	m_parament = matrix_generation(tmp_rvec, tmp_tvec);
+	
+	m_flag = 1;
 }

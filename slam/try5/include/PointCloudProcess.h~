@@ -13,6 +13,7 @@
 #include <XnCppWrapper.h>
 
 #include "opencv2/opencv.hpp"
+#include "opencv2/core/eigen.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/imgcodecs.hpp"
 #include "opencv2/highgui/highgui.hpp"
@@ -21,6 +22,7 @@
 #include <pcl-1.7/pcl/point_types.h>
 #include <pcl-1.7/pcl/visualization/pcl_visualizer.h>
 #include <pcl-1.7/pcl/visualization/cloud_viewer.h>
+#include <pcl-1.7/pcl/common/transform.h>
 
 #include <Eigen/Core>
 #include <Eigen/Geometry>
@@ -46,6 +48,7 @@ class PointCloudProcess
 		
 		Isometry3d m_parament;
 		
+		int m_flag;
 		
 	public:
 		PointCloudProcess();

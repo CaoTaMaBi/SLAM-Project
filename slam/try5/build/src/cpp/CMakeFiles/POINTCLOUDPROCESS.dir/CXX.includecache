@@ -93,6 +93,8 @@ pcl-1.7/pcl/visualization/pcl_visualizer.h
 -
 pcl-1.7/pcl/visualization/cloud_viewer.h
 -
+pcl-1.7/pcl/common/transforms.h
+-
 Eigen/Core
 -
 Eigen/Geometry

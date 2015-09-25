@@ -49,12 +49,14 @@ class Detect
 		Mat m_descriptorlast;
 		Mat m_descriptorrecent;
 		
+		int flag;
+		
 	public:
 		Detect();
 		vector<cv::KeyPoint> kp_extract(Ptr<xfeatures2d::SURF> det, Mat img);
 		Mat descriptor_compute(Ptr<xfeatures2d::SURF> det, Mat img, vector<cv::KeyPoint> kp);
 		vector<DMatch> img_match(BFMatcher match, Mat last, Mat recent);
-		void ransac_detect(vector<DMatch> tmp_matchpoint, vector<KeyPoint> tmp_lastkp, vector<KeyPoint> tmp_recentkp, DepthGenerator tmp_depth, DepthMetaData &tmp_depthmeta);//, const XnDepthPixel* tmp_depthpixel);
+		void ransac_detect(vector<DMatch> tmp_matchpoint, vector<KeyPoint> tmp_lastkp, vector<KeyPoint> tmp_recentkp, DepthGenerator tmp_depth, DepthMetaData &tmp_depthmeta);
 		void surf_show(Mat last, Mat recent, vector<KeyPoint> kpl, vector<KeyPoint> kpr, vector<DMatch> points);
 		void surf_process(Mat tmp_image, DepthGenerator tmp_depth, DepthMetaData &tmp_depthmeta, const XnDepthPixel* tmp_depthpixel);
 		bool getGoodMatchesA();

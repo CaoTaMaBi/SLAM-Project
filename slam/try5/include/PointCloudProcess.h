@@ -22,6 +22,7 @@
 #include <pcl-1.7/pcl/point_types.h>
 #include <pcl-1.7/pcl/visualization/pcl_visualizer.h>
 #include <pcl-1.7/pcl/visualization/cloud_viewer.h>
+#include <pcl-1.7/pcl/common/transforms.h>
 
 #include <Eigen/Core>
 #include <Eigen/Geometry>
@@ -47,6 +48,7 @@ class PointCloudProcess
 		
 		Isometry3d m_parament;
 		
+		int m_flag;
 		
 	public:
 		PointCloudProcess();

@@ -49,6 +49,7 @@ class Detect
 		Mat m_descriptorlast;
 		Mat m_descriptorrecent;
 		
+		
 	public:
 		Detect();
 		vector<cv::KeyPoint> kp_extract(Ptr<xfeatures2d::SURF> det, Mat img);
