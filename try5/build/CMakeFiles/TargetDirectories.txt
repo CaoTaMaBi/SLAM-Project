@@ -1,4 +1,0 @@
-/home/lukezhu/Documents/Git/repository/slam/try5/build/src/cpp/CMakeFiles/GETKINECT.dir
-/home/lukezhu/Documents/Git/repository/slam/try5/build/src/cpp/CMakeFiles/POINTCLOUDPROCESS.dir
-/home/lukezhu/Documents/Git/repository/slam/try5/build/src/cpp/CMakeFiles/SURFDETECT.dir
-/home/lukezhu/Documents/Git/repository/slam/try5/build/src/cpp/CMakeFiles/main.dir
