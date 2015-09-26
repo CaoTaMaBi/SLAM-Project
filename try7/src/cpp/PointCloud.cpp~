@@ -1,0 +1,14 @@
+#include <PointCloud.h>
+
+using namespace std;
+using namespace cv;
+using namespace pcl;
+
+PointCloud::PointCloud()
+{
+	fuck = 0;
+}
+
+void PointCloud::map_generation()
+{
+}
