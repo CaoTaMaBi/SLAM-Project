@@ -150,7 +150,7 @@ void Detect::ransac_detect(vector<DMatch> tmp_matchpoint, vector<KeyPoint> tmp_l
 	
 	tmp_depth.ConvertProjectiveToRealWorld(tmp_matchpoint.size(), depthpointcloud, realpointcloud);
 	
-	cout<<"aaaaaaa"<<tmp_matchpoint.size()<<endl;
+//	cout<<"aaaaaaa"<<tmp_matchpoint.size()<<endl;
 	for(int i = 0; i < tmp_matchpoint.size(); i++)
 	{
 		if (realpointcloud[i].Z == 0)
@@ -172,12 +172,12 @@ void Detect::ransac_detect(vector<DMatch> tmp_matchpoint, vector<KeyPoint> tmp_l
 	bool result;
 
 	result = solvePnPRansac( pts_last, pts_recent, cameraMatrix, Mat(), rvec, tvec);
-	cout << result << endl;
+//	cout << result << endl;
 
-	std::cout << "rvec:" << std::endl;
-	std::cout << rvec << std::endl;
-	std::cout << "tvec:" << std::endl;
-	std::cout << tvec << std::endl;
+//	std::cout << "rvec:" << std::endl;
+//	std::cout << rvec << std::endl;
+//	std::cout << "tvec:" << std::endl;
+//	std::cout << tvec << std::endl;
 
 }
 

@@ -30,15 +30,17 @@ void* PointCloudProcess::POINTCLOUD_THREAD(void* pvData)
 	
 	while(1)
 	{
+cout << "flag1   "<<(*pcp).m_flag << endl;//	cout << "caacacacaa " << endl;
 		if((*pcp).m_flag == 1)
 		{
-			g_cloud = (*pcp).pointcloud_generation((*pcp).m_depthgen, (*pcp).m_depthmeta, (*pcp).m_pdepthpix, (*pcp).m_pimagepix);
-			transformPointCloud(*g_cloud, *tmp_cloud, (*pcp).m_parament.matrix());
-			
-			*g_cloudout += *tmp_cloud;
-			(*pcp).m_flag = 0;
-			
-		}
+			g_cloudout = (*pcp).pointcloud_generation((*pcp).m_depthgen, (*pcp).m_depthmeta, (*pcp).m_pdepthpix, (*pcp).m_pimagepix);
+	//		transformPointCloud(*g_cloud, *tmp_cloud, (*pcp).m_parament.matrix());
+			cout << "FUCK" << endl;
+	//		*g_cloudout += *tmp_cloud;
+	//		(*pcp).m_flag = 0;
+		}			
+		cout << "flag2   "<<(*pcp).m_flag << endl;
+//}
 		pcl::visualization::PointCloudColorHandlerRGBField<pcl::PointXYZRGB> rgb(g_cloudout);	
 		viewer.updatePointCloud(g_cloudout, rgb, "sample cloud");
 		viewer.spinOnce (10);
@@ -56,6 +58,8 @@ PointCloud<pcl::PointXYZRGB>::Ptr PointCloudProcess::pointcloud_generation(Depth
 {
 	int serialy=0;
 	int serial=0; 
+//	cout << "x  " <<	(*pcg_pdepthmeta).FullXRes()<< endl;
+//	cout << "y  " <<	(*pcg_pdepthmeta).FullYRes()<< endl;
 	int pointnumber = (*pcg_pdepthmeta).FullXRes()*(*pcg_pdepthmeta).FullYRes();
 	XnPoint3D* depthpointcloud = new XnPoint3D[pointnumber];
 	XnPoint3D* realpointcloud = new XnPoint3D[pointnumber];
@@ -91,6 +95,7 @@ PointCloud<pcl::PointXYZRGB>::Ptr PointCloudProcess::pointcloud_generation(Depth
 		pclpoint.r = pcg_pimgpixel[i].nRed;
 		pclpoint.g = pcg_pimgpixel[i].nGreen;
 		pclpoint.b = pcg_pimgpixel[i].nBlue;
+		
 		pclcloud->points.push_back(pclpoint);
 		
 	}
@@ -123,14 +128,14 @@ Isometry3d PointCloudProcess::matrix_generation(Mat mg_rvec, Mat mg_tvec)
 	return (rT);
 }
 
-void PointCloudProcess::map_generation(Mat tmp_rvec, Mat tmp_tvec,DepthGenerator* tmp_pdepth, DepthMetaData* tmp_pdepthmeta, const XnDepthPixel* tmp_pdepthpixel, const XnRGB24Pixel* tmp_pimgpixel)
+void PointCloudProcess::map_generation(Mat tmp_rvec, Mat tmp_tvec, DepthGenerator* tmp_pdepth, DepthMetaData* tmp_pdepthmeta, const XnDepthPixel* tmp_pdepthpixel, const XnRGB24Pixel* tmp_pimgpixel)
 {
 	m_depthgen = tmp_pdepth;
 	m_depthmeta = tmp_pdepthmeta;
 	m_pdepthpix = tmp_pdepthpixel;
 	m_pimagepix = tmp_pimgpixel;
 	
-	m_parament = matrix_generation(tmp_rvec, tmp_tvec);
+//	m_parament = matrix_generation(tmp_rvec, tmp_tvec);
 	
 	m_flag = 1;
 }
