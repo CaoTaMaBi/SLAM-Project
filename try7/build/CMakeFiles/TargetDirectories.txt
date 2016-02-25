@@ -1,4 +1,0 @@
-/home/lukezhu/Documents/Simultaneous localization and mapping/slamdiy/try7/build/src/cpp/CMakeFiles/GETKINECT.dir
-/home/lukezhu/Documents/Simultaneous localization and mapping/slamdiy/try7/build/src/cpp/CMakeFiles/POINTCLOUDPROCESS.dir
-/home/lukezhu/Documents/Simultaneous localization and mapping/slamdiy/try7/build/src/cpp/CMakeFiles/SURFDETECT.dir
-/home/lukezhu/Documents/Simultaneous localization and mapping/slamdiy/try7/build/src/cpp/CMakeFiles/main.dir
