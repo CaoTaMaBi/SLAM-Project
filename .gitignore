@@ -34,3 +34,7 @@ install_manifest.txt
 *.exe
 *.out
 *.app
+
+/build/*
+bin/*
+lib/*
