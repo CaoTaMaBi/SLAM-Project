@@ -1,0 +1,11 @@
+#include "hello.h"
+
+using namespace std;
+
+int hello::HelloFunc()
+{
+	cin>>innum;
+	outnum=innum;
+	cout<<"FUCKING THE WORLD  "<<outnum<<"  DAMN IT"<<endl;
+	return 0;
+}
