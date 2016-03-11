@@ -36,3 +36,5 @@ install_manifest.txt
 *.app
 
 /build/*
+/lib/*
+*~
